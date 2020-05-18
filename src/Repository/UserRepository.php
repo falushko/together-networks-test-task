@@ -42,15 +42,19 @@ class UserRepository
      */
     public function getUsersByEmailOrName(string $emailOrName): array
     {
+        if ($usersArray = $this->cacheManager->getUsersBySearchPhrase($emailOrName)) {
+            return  $this->userHydrator->hydrateUsers($usersArray);
+        }
+
         $stmt = $this->pdo->prepare("
             SELECT id, name, email, sum, currency 
             FROM users 
-            WHERE name = :name OR email = :email
+            WHERE name = :name OR email = :email;
         ");
 
         $stmt->execute(['name' => $emailOrName, 'email' => $emailOrName]);
-
         $usersArray = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $this->cacheManager->setUsersBySearchPhrase($emailOrName, $usersArray);
 
         return $this->userHydrator->hydrateUsers($usersArray);
     }

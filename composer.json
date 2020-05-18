@@ -4,6 +4,8 @@
   },
   "require": {
     "ext-yaml": "*",
-    "ext-pdo": "*"
+    "ext-pdo": "*",
+    "predis/predis": "^1.1",
+    "ext-json": "*"
   }
 }

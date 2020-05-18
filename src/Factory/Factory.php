@@ -3,6 +3,7 @@
 namespace TestTask\Factory;
 
 use PDO;
+use Predis\Client;
 use TestTask\Hydrator\UserHydrator;
 use TestTask\Interfaces\ValidatorInterface;
 use TestTask\Manager\CacheManager;
@@ -45,7 +46,14 @@ class Factory
      */
     public function createCacheManager(): CacheManager
     {
-        return new CacheManager();
+        return new CacheManager($this->createRedisClient());
+    }
+
+    public function createRedisClient(): Client
+    {
+        $redisConfig = (new ConfigManager())->getRedisConfig();
+
+        return new Client($redisConfig);
     }
 
     /**

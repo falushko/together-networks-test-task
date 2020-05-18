@@ -11,9 +11,6 @@ class ConfigManager
 
     protected $config;
 
-    /**
-     * @throws FileNotFoundException
-     */
     public function __construct()
     {
         if (!file_exists(self::CONFIG_FILE)) {
@@ -25,7 +22,6 @@ class ConfigManager
 
     /**
      * @return array
-     * @throws InvalidConfigException
      */
     public function getDatabaseConfig(): array
     {
@@ -34,6 +30,18 @@ class ConfigManager
         }
 
         return $this->config['database'];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRedisConfig()
+    {
+        if (!$this->isRedisConfigValid()) {
+            throw new InvalidConfigException('Invalid redis config');
+        }
+
+        return $this->config['redis'];
     }
 
     /**
@@ -48,5 +56,17 @@ class ConfigManager
             array_key_exists('dbname', $this->config['database']) &&
             array_key_exists('user', $this->config['database']) &&
             array_key_exists('password', $this->config['database']);
+    }
+
+    /**
+     * @return bool
+     */
+    protected function isRedisConfigValid()
+    {
+        return
+            array_key_exists('redis', $this->config) &&
+            array_key_exists('host', $this->config['redis']) &&
+            array_key_exists('port', $this->config['redis']) &&
+            array_key_exists('scheme', $this->config['redis']);
     }
 }

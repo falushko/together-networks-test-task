@@ -1,0 +1,9 @@
+{
+  "autoload": {
+    "psr-4": {"TestTask\\": "src/"}
+  },
+  "require": {
+    "ext-yaml": "*",
+    "ext-pdo": "*"
+  }
+}

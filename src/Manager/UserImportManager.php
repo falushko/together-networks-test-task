@@ -7,6 +7,10 @@ use TestTask\DTO\User;
 use TestTask\Interfaces\ValidatorInterface;
 use TestTask\Validator\UserValidator;
 
+/**
+ * Class UserImportManager
+ * @package TestTask\Manager
+ */
 class UserImportManager
 {
     /**
@@ -30,7 +34,7 @@ class UserImportManager
     }
 
     /**
-     * Takes around 10 seconds to import 600k rows with the batch size 100
+     * Takes around 10-15 seconds to import 600k rows with the batch size 100
      * @param string $source
      * @param int $batchSize
      */
@@ -39,6 +43,12 @@ class UserImportManager
         $file = fopen($source, 'r');
         list($query, $parameters, $batchCounter) = $this->reset();
         $user = new User();
+
+        /** Removing indexes increases bulk input by ~10 seconds */
+        $this->pdo->query('
+            ALTER TABLE users DROP INDEX name_idx;
+            ALTER TABLE users DROP INDEX email_idx;
+        ');
 
         while ($row = fgetcsv($file)) {
             if ($batchCounter >= $batchSize) {
@@ -63,13 +73,19 @@ class UserImportManager
 
         $stmt = $this->pdo->prepare(rtrim($query, ', '));
         $stmt->execute($parameters);
+
+        /** Return indexes back */
+        $this->pdo->query('
+            CREATE INDEX name_idx ON users (name);
+            CREATE INDEX email_idx ON users (email);
+        ');
     }
 
     /**
      * Returns $query, $parameters and $batchCounter
      * @return array
      */
-    private function reset()
+    protected function reset()
     {
         return ["INSERT INTO users (id, name, email, sum, currency) VALUES ", [], 0];
     }

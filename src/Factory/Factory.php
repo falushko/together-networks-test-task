@@ -12,6 +12,10 @@ use TestTask\Manager\UserImportManager;
 use TestTask\Repository\UserRepository;
 use TestTask\Validator\UserValidator;
 
+/**
+ * Class Factory
+ * @package TestTask\Factory
+ */
 class Factory
 {
     /**
@@ -49,6 +53,9 @@ class Factory
         return new CacheManager($this->createRedisClient());
     }
 
+    /**
+     * @return Client
+     */
     public function createRedisClient(): Client
     {
         $redisConfig = (new ConfigManager())->getRedisConfig();

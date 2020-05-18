@@ -7,6 +7,10 @@ use TestTask\DTO\User;
 use TestTask\Hydrator\UserHydrator;
 use TestTask\Manager\CacheManager;
 
+/**
+ * Class UserRepository
+ * @package TestTask\Repository
+ */
 class UserRepository
 {
     /**

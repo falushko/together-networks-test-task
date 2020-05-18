@@ -2,28 +2,26 @@
 
 namespace TestTask\Validator;
 
-use InvalidArgumentException;
 use TestTask\DTO\User;
-use TestTask\Interfaces\ValidatableInterface;
 use TestTask\Interfaces\ValidatorInterface;
 
+/**
+ * Class UserValidator
+ * @package TestTask\Validator
+ */
 class UserValidator implements ValidatorInterface
 {
     /**
      * @var array
      */
-    private $errors;
+    protected $errors;
 
     /**
-     * @param ValidatableInterface $user
+     * @param User $user
      * @return bool
      */
-    public function isValid(ValidatableInterface $user): bool
+    public function isValid($user): bool
     {
-        if (!$user instanceof User) {
-            throw new InvalidArgumentException('Only User class allowed!');
-        }
-
         $this->errors = [];
         $this->validateId($user);
         $this->validateName($user);
@@ -45,7 +43,7 @@ class UserValidator implements ValidatorInterface
     /**
      * @param User $user
      */
-    private function validateId(User $user)
+    protected function validateId(User $user)
     {
         if (empty($user->getId()) || strlen($user->getId()) > 36) {
             $this->errors['id'] = 'User\'s id is invalid';
@@ -55,7 +53,7 @@ class UserValidator implements ValidatorInterface
     /**
      * @param User $user
      */
-    private function validateName(User $user)
+    protected function validateName(User $user)
     {
         if (empty($user->getName()) || strlen($user->getName()) > 30) {
             $this->errors['name'] = 'User\'s name is invalid';
@@ -65,7 +63,7 @@ class UserValidator implements ValidatorInterface
     /**
      * @param User $user
      */
-    private function validateEmail(User $user)
+    protected function validateEmail(User $user)
     {
         if (empty($user->getEmail()) || strlen($user->getEmail()) > 30) {
             $this->errors['email'] = 'User\'s email is invalid';
@@ -75,7 +73,7 @@ class UserValidator implements ValidatorInterface
     /**
      * @param User $user
      */
-    private function validateCurrency(User $user)
+    protected function validateCurrency(User $user)
     {
         if (empty($user->getCurrency()) || strlen($user->getCurrency()) > 5) {
             $this->errors['name'] = 'User\'s currency is invalid';
@@ -85,7 +83,7 @@ class UserValidator implements ValidatorInterface
     /**
      * @param User $user
      */
-    private function validateSum(User $user)
+    protected function validateSum(User $user)
     {
         if (empty($user->getSum()) || strlen((string) $user->getSum()) > 6) {
             $this->errors['sum'] = 'User\'s sum is invalid';

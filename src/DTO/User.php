@@ -2,9 +2,11 @@
 
 namespace TestTask\DTO;
 
-use TestTask\Interfaces\ValidatableInterface;
-
-class User implements ValidatableInterface
+/**
+ * Class User
+ * @package TestTask\DTO
+ */
+class User
 {
     /** @var string */
     protected $id;

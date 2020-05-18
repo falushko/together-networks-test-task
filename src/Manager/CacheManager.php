@@ -13,7 +13,7 @@ class CacheManager
     const USERS_PREFIX = 'users_search_';
 
     /** @var Client  */
-    private $redis;
+    protected $redis;
 
     /**
      * CacheManager constructor.

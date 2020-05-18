@@ -5,6 +5,10 @@ namespace TestTask\Manager;
 use TestTask\Exception\FileNotFoundException;
 use TestTask\Exception\InvalidConfigException;
 
+/**
+ * Class ConfigManager
+ * @package TestTask\Manager
+ */
 class ConfigManager
 {
     const CONFIG_FILE = 'config/config.yml';

@@ -9,10 +9,10 @@ namespace TestTask\Interfaces;
 interface ValidatorInterface
 {
     /**
-     * @param ValidatableInterface $validatable
+     * @param mixed $dto
      * @return bool
      */
-    public function isValid(ValidatableInterface $validatable): bool;
+    public function isValid($dto): bool;
 
     /**
      * @return array

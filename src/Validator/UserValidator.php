@@ -76,7 +76,7 @@ class UserValidator implements ValidatorInterface
     protected function validateCurrency(User $user)
     {
         if (empty($user->getCurrency()) || strlen($user->getCurrency()) > 5) {
-            $this->errors['name'] = 'User\'s currency is invalid';
+            $this->errors['currency'] = 'User\'s currency is invalid';
         }
     }
 

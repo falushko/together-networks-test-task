@@ -11,14 +11,14 @@ use TestTask\Exception\InvalidConfigException;
  */
 class ConfigManager
 {
-    const CONFIG_FILE = 'config/config.yml';
+    const CONFIG_FILE = __DIR__ . '/../../config/config.yml';
 
     protected $config;
 
     public function __construct()
     {
         if (!file_exists(self::CONFIG_FILE)) {
-            throw new FileNotFoundException('Unable to find' . self::CONFIG_FILE . ' file!');
+            throw new FileNotFoundException('Unable to find ' . self::CONFIG_FILE . ' file!');
         }
 
         $this->config = yaml_parse_file(self::CONFIG_FILE);

@@ -1,4 +1,4 @@
-#Together Networks Test Task
+# Together Networks Test Task
 
 
 На PHP 7 применяя знания SOLID и паттернов необходимо: 
@@ -10,7 +10,7 @@
 - Результат поиска должен быть кешированный. Выложить исходники на github - отправить линк для проверки. 
 - Использования фреймворков не допускается. Поля для импорта: ID Пользователя ФИО Пользователя Email Валюта Сумма
 
-##How to use
+## How to use
 
 To check this task run migration to create users table (database `test_task` should be 
 created before):

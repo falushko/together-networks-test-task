@@ -5,6 +5,10 @@ namespace TestTask\Factory;
 use PDO;
 use Predis\Client;
 use TestTask\Hydrator\UserHydrator;
+use TestTask\Interfaces\UserCacheManagerInterface;
+use TestTask\Interfaces\UserHydratorInterface;
+use TestTask\Interfaces\UserImportManagerInterface;
+use TestTask\Interfaces\UserRepositoryInterface;
 use TestTask\Interfaces\ValidatorInterface;
 use TestTask\Manager\CacheManager;
 use TestTask\Manager\ConfigManager;
@@ -19,17 +23,17 @@ use TestTask\Validator\UserValidator;
 class Factory
 {
     /**
-     * @return UserRepository
+     * @return UserRepositoryInterface
      */
-    public function createUserRepository(): UserRepository
+    public function createUserRepository(): UserRepositoryInterface
     {
         return new UserRepository($this->createPDO(), $this->createUserHydrator(), $this->createCacheManager());
     }
 
     /**
-     * @return UserImportManager
+     * @return UserImportManagerInterface
      */
-    public function createUserImportManager()
+    public function createUserImportManager(): UserImportManagerInterface
     {
         return new UserImportManager($this->createPDO(), $this->createUserValidator());
     }
@@ -46,9 +50,9 @@ class Factory
     }
 
     /**
-     * @return CacheManager
+     * @return UserCacheManagerInterface
      */
-    public function createCacheManager(): CacheManager
+    public function createCacheManager(): UserCacheManagerInterface
     {
         return new CacheManager($this->createRedisClient());
     }
@@ -72,9 +76,9 @@ class Factory
     }
 
     /**
-     * @return UserHydrator
+     * @return UserHydratorInterface
      */
-    public function createUserHydrator(): UserHydrator
+    public function createUserHydrator(): UserHydratorInterface
     {
         return new UserHydrator();
     }

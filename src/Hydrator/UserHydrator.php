@@ -3,18 +3,19 @@
 namespace TestTask\Hydrator;
 
 use TestTask\DTO\User;
+use TestTask\Interfaces\UserHydratorInterface;
 
 /**
  * Class UserHydrator
  * @package TestTask\Hydrator
  */
-class UserHydrator
+class UserHydrator implements UserHydratorInterface
 {
     /**
      * @param array $user
      * @return User
      */
-    public function hydrateUser(array $user)
+    public function hydrateUser(array $user): User
     {
         $userDTO = new User();
         $userDTO->setId($user['id']);
@@ -30,7 +31,7 @@ class UserHydrator
      * @param array $users
      * @return array
      */
-    public function hydrateUsers(array $users)
+    public function hydrateUsers(array $users): array
     {
         $userDTOArray = [];
         foreach ($users as $user) {
@@ -39,5 +40,4 @@ class UserHydrator
 
         return $userDTOArray;
     }
-
 }

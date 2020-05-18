@@ -3,12 +3,13 @@
 namespace TestTask\Manager;
 
 use Predis\Client;
+use TestTask\Interfaces\UserCacheManagerInterface;
 
 /**
  * Class CacheManager
  * @package TestTask\Manager
  */
-class CacheManager
+class CacheManager implements UserCacheManagerInterface
 {
     const USERS_PREFIX = 'users_search_';
 

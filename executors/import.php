@@ -10,7 +10,7 @@ try {
     echo "Importing...\n\r";
     $start = microtime(true);
 
-    $factory->createUserImportManager()->importUsersFromCsvBatch('resources/users.csv');
+    $factory->createUserImportManager()->importUsersFromCsv('resources/users.csv');
 
     $end = microtime(true);
 

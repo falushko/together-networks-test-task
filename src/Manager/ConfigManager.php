@@ -4,12 +4,13 @@ namespace TestTask\Manager;
 
 use TestTask\Exception\FileNotFoundException;
 use TestTask\Exception\InvalidConfigException;
+use TestTask\Interfaces\ConfigManagerInterface;
 
 /**
  * Class ConfigManager
  * @package TestTask\Manager
  */
-class ConfigManager
+class ConfigManager implements ConfigManagerInterface
 {
     const CONFIG_FILE = __DIR__ . '/../../config/config.yml';
 
@@ -37,9 +38,9 @@ class ConfigManager
     }
 
     /**
-     * @return mixed
+     * @return array
      */
-    public function getRedisConfig()
+    public function getRedisConfig(): array
     {
         if (!$this->isRedisConfigValid()) {
             throw new InvalidConfigException('Invalid redis config');

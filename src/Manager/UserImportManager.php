@@ -4,6 +4,7 @@ namespace TestTask\Manager;
 
 use PDO;
 use TestTask\DTO\User;
+use TestTask\Interfaces\UserImportManagerInterface;
 use TestTask\Interfaces\ValidatorInterface;
 use TestTask\Validator\UserValidator;
 
@@ -11,7 +12,7 @@ use TestTask\Validator\UserValidator;
  * Class UserImportManager
  * @package TestTask\Manager
  */
-class UserImportManager
+class UserImportManager implements UserImportManagerInterface
 {
     /**
      * @var PDO
@@ -38,7 +39,7 @@ class UserImportManager
      * @param string $source
      * @param int $batchSize
      */
-    public function importUsersFromCsvBatch(string $source, int $batchSize = 100)
+    public function importUsersFromCsv(string $source, int $batchSize = 100)
     {
         $file = fopen($source, 'r');
         list($query, $parameters, $batchCounter) = $this->reset();

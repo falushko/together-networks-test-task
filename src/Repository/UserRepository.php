@@ -4,14 +4,15 @@ namespace TestTask\Repository;
 
 use PDO;
 use TestTask\DTO\User;
-use TestTask\Hydrator\UserHydrator;
-use TestTask\Manager\CacheManager;
+use TestTask\Interfaces\UserCacheManagerInterface;
+use TestTask\Interfaces\UserHydratorInterface;
+use TestTask\Interfaces\UserRepositoryInterface;
 
 /**
  * Class UserRepository
  * @package TestTask\Repository
  */
-class UserRepository
+class UserRepository implements UserRepositoryInterface
 {
     /**
      * @var PDO
@@ -19,21 +20,21 @@ class UserRepository
     protected $pdo;
 
     /**
-     * @var CacheManager
+     * @var UserCacheManagerInterface
      */
     protected $cacheManager;
 
     /**
-     * @var UserHydrator
+     * @var UserHydratorInterface
      */
     protected $userHydrator;
 
     /**
      * @param PDO $pdo
-     * @param UserHydrator $userHydrator
-     * @param CacheManager $cacheManager
+     * @param UserHydratorInterface $userHydrator
+     * @param UserCacheManagerInterface $cacheManager
      */
-    public function __construct(PDO $pdo, UserHydrator $userHydrator, CacheManager $cacheManager)
+    public function __construct(PDO $pdo, UserHydratorInterface $userHydrator, UserCacheManagerInterface $cacheManager)
     {
         $this->pdo = $pdo;
         $this->userHydrator = $userHydrator;
